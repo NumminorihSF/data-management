@@ -18,10 +18,12 @@ import {
   REMOTE_VALUE,
   INITIAL_KEY,
   REMOTE_KEY,
-  JSON_VALUE
+  JSON_VALUE,
+  setData
 } from './constants';
 
 import plainObjectApi from './api/plainObject';
+
 
 
 class DataModel {
@@ -42,7 +44,7 @@ class DataModel {
     return this;
   }
 
-  setData(data){
+  [setData](data){
     this[DATA] = data;
   }
 
@@ -54,7 +56,7 @@ class DataModel {
       const data = original.call(self, ...rest);
       const model = new DataModel(context[SCHEMA], context[IMMUTABLE]);
       model.setApi(context[API]);
-      model.setData(data);
+      model[setData](data);
       return model;
     }
   }

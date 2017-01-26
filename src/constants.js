@@ -21,3 +21,7 @@ export const REMOTE_VALUE = Symbol('__REMOTE_VALUE__');
 export const INITIAL_KEY = Symbol('__INITIAL_KEY__');
 export const REMOTE_KEY = Symbol('__REMOTE_KEY__');
 export const JSON_VALUE = Symbol('__JSON_VALUE__');
+
+export const setData = Symbol('setData');
+export const getValidType = Symbol('getValidType');
+export const clone = Symbol('clone');
