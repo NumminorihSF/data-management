@@ -1,0 +1,36 @@
+{
+  "name": "data-management",
+  "version": "0.0.1",
+  "description": "Tools for data management with JavaScript",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register src/**/*.test.js",
+    "lint": "eslint --ignore-pattern \"*.test.*\" \"./src/**/*.js\"",
+    "lint:fix": "eslint --ignore-pattern \"*.test.*\" \"./src/**/*.js\" --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NumminorihSF/data-management.git"
+  },
+  "keywords": [
+    "data",
+    "management"
+  ],
+  "author": "Konstantin Petryaev <numminorihsf@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NumminorihSF/data-management/issues"
+  },
+  "homepage": "https://github.com/NumminorihSF/data-management#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
+  }
+}

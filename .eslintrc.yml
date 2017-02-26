@@ -1,0 +1,17 @@
+parserOptions:
+  sourceType: module
+  ecmaFeatures:
+    modules: true
+
+env:
+  browser: true
+  es6: true
+  node: true
+
+extends:
+  - eslint:recommended
+  - airbnb-base
+
+rules:
+  no-underscore-dangle: ["error", { "allowAfterThis": true }]
+  no-use-before-define: ["error", { "functions": false }]
