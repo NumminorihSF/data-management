@@ -1,5 +1,5 @@
-
-
+import namespace from './namespace';
+import usePlugin from '../utils/usePlugin';
 import throwErr from '../utils/throwErr';
 
 const ALL = Symbol('ALL');
@@ -10,7 +10,12 @@ const NO_ARG = Symbol('NO_ARG');
 
 let throwCb = throwErr;
 
+const appenExtras = function appendExtras (constructor) {
+  namespace(constructor);
+  constructor.use = usePlugin(constructor);
+};
 
+// todo check if append use on extended model
 export default class Model {
   static setThrowCallback(callback) {
     throwCb = callback;
@@ -21,9 +26,7 @@ export default class Model {
     const res = class extends Parent {};
 
     res.extend = childModelName => Model.extend(childModelName, res);
-
-    res.use = usePlugin(res);
-
+    appenExtras(res);
     res.name = modelName;
     return res;
   }
@@ -106,17 +109,4 @@ export default class Model {
 
 }
 
-Model.use = usePlugin(Model);
-
-function usePlugin(ModelConstructor) {
-  return function use(plugin) {
-    plugin.getMethods().forEach(({ name, method, isStatic }) => {
-      const target = isStatic ? ModelConstructor : ModelConstructor.prototype;
-      if (Object.prototype.hasOwnProperty.call(target, name)) {
-        throw new Error(`Model(${ModelConstructor.name}) already has method with name ${name}.`);
-      }
-      target[name] = method;
-    });
-    return ModelConstructor;
-  };
-}
+appenExtras(Model);

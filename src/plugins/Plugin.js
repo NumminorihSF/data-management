@@ -1,22 +1,39 @@
-
-
 export default class Plugin {
-  constructor(name) {
+  static hasField(plugin, name){
+    return plugin.fields.some((field) => field.name === name);
+  }
+
+  constructor(name, namespace = Symbol('unique namespace')) {
     this.name = name;
-    this.symbol = Symbol(name);
+    this.ns = namespace;
     this.methods = {};
     this.fields = [];
   }
 
+  namespace(namespace) {
+    this.ns = namespace;
+    return this;
+  }
+
   method(methodName, methodBody, isStatic = false) {
     if (Object.prototype.hasOwnProperty.call(this.methods, methodName)) {
-      throw new Error(`Plugin(${this.name}) already has method with name ${methodName}.`);
+      throw new Error(`Plugin(${this.name}) already has method with name "${methodName}".`);
     }
     this.methods[methodName] = { method: methodBody, isStatic };
     return this;
   }
 
-  // TODO #field
+  field(name, initValue) {
+    if (Plugin.hasField(this, name)) {
+      throw Error(`Plugin(${this.name}) already has field with "${name}".`)
+    }
+    this.fields.push({ name, value: initValue });
+    return this;
+  }
+
+  getNamespace() {
+    return this.ns;
+  }
 
   getMethods() {
     return Object.keys(this.methods).reduce((result, name) => {
@@ -29,9 +46,7 @@ export default class Plugin {
   }
 
   getFields() {
-    return this.fields.map(v => v);
+    return this.fields.map(v => Object.assign({}, v));
   }
-
-
 }
 
